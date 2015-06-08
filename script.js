@@ -73,17 +73,20 @@
     });
     var markovResponse = document.getElementsByClassName("submit_values"); 
     markovResponse[0].addEventListener("click", function(event) {
+      var count = 0; 
       var probability = document.getElementById("average"); 
       probability = Number(probability.value); 
       var result = average/probability; 
       var HTMLstring = ""; 
-      HTMLstring += "<p id=\"result\"> P(X ≥ <span style=\"color:#f39c12;\">" + probability + "</span>) given μ = <span style=\"color:#f39c12;\">" + average + "</span></p>"; 
-      HTMLstring += "<p id=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result.toFixed(5) + "</span></p>"; 
-      HTMLstring += "<p id=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result.toFixed(5)*100 + "%</span></p>";
+      HTMLstring += "<p id=\"instruction\" style=\"font-size:14px;\"> click the inequality! </p>";
+      HTMLstring += "<p id=\"inequality\" class=\"result\"> P(X ≥ <span style=\"color:#f39c12;\">" + probability + "</span>) given μ = <span style=\"color:#f39c12;\">" + average + "</span></p>"; 
+      HTMLstring += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result.toFixed(5) + "</span></p>"; 
+      HTMLstring += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result.toFixed(5)*100 + "%</span></p>";
       $(function(){  // $(document).ready shorthand
         markovDiv.innerHTML = HTMLstring;
         $('#markov_continue').hide().fadeIn("slow");
       }); 
+      inequalityMarkov(result, probability, average, count); 
       $(function(){
         $('html, body').animate({
           scrollTop: $("#markov_continue").offset().top
@@ -147,20 +150,76 @@
     });
     var chebyResponse = document.getElementsByClassName("submit_values"); 
     chebyResponse[0].addEventListener("click", function(event) {
+      var count = 0; 
       var vary = document.getElementById("average"); 
       chebyDiv.innerHTML = ""; 
       vary = Number(vary.value); 
       var result = stddev/(vary*vary); 
       htmlString = ""; 
-      htmlString += "<p id=\"result\"> P(|X - <span style=\"color:#f1c40f;\">" + average + "</span>| ≥ <span style=\"color:#f1c40f;\">" + vary + "</span>)</p>";
-      htmlString += "<p id=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result + "</span></p>"; 
-      htmlString += "<p id=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result*100 + "%</span></p>"; 
+      htmlString += "<p id=\"instruction\" style=\"font-size:14px;\"> click the inequality! </p>";
+      htmlString += "<p id=\"inequality\" class=\"result\"> P(|X - <span style=\"color:#f1c40f;\">" + average + "</span>| ≥ <span style=\"color:#f1c40f;\">" + vary + "</span>)</p>";
+      htmlString += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result + "</span></p>"; 
+      htmlString += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result*100 + "%</span></p>"; 
       $(function(){  // $(document).ready shorthand
         chebyDiv.innerHTML = htmlString;
         $('#chebyshev_continue').hide().fadeIn("slow");
       });
+      inequalityCheby(count, average, result, vary);
+      $(function(){
+        $('html, body').animate({
+          scrollTop: $("#chebyshev_continue").offset().top
+        }, 500);
+        return false;
+      });
       submit[0].style.color = "#f39c12"; 
     }); 
+  }
+
+  function inequalityCheby(count, average, result, vary) {
+    $('#inequality').click(function() {
+        var chebyDiv = document.getElementById("chebyshev_continue");
+        count++;
+        if(count % 2 == 0) {
+          htmlString = ""; 
+          htmlString += "<p id=\"inequality\" class=\"result\"> P(|X - <span style=\"color:#f1c40f;\">" + average + "</span>| ≥ <span style=\"color:#f1c40f;\">" + vary + "</span>)</p>";
+          htmlString += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result + "</span></p>"; 
+          htmlString += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result*100 + "%</span></p>"; 
+        } else {
+          htmlString = ""; 
+          htmlString += "<p id=\"inequality\" class=\"result\"> P(|X - <span style=\"color:#f1c40f;\">" + average + "</span>| < <span style=\"color:#f1c40f;\">" + vary + "</span>)</p>";
+          htmlString += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + (1 - result) + "</span></p>"; 
+          htmlString += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + (1-result)*100 + "%</span></p>"; 
+        }
+        $(function(){  // $(document).ready shorthand
+            chebyDiv.innerHTML = htmlString;
+            $('#chebyshev_continue').hide().fadeIn("fast");
+        });
+
+        inequalityCheby(count, average, result, vary); 
+      });
+  }
+
+  function inequalityMarkov(result, probability, average, count) {
+    $('#inequality').click(function() {
+        var markovDiv = document.getElementById("markov_continue");
+        count++;
+        if(count % 2 == 0) {
+          var HTMLstring = ""; 
+          HTMLstring += "<p id=\"inequality\" class=\"result\"> P(X ≥ <span style=\"color:#f39c12;\">" + probability + "</span>) given μ = <span style=\"color:#f39c12;\">" + average + "</span></p>"; 
+          HTMLstring += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + result.toFixed(5) + "</span></p>"; 
+          HTMLstring += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + result.toFixed(5)*100 + "%</span></p>";
+        } else {
+          var HTMLstring = ""; 
+          HTMLstring += "<p id=\"inequality\" class=\"result\"> P(X < <span style=\"color:#f39c12;\">" + probability + "</span>) given μ = <span style=\"color:#f39c12;\">" + average + "</span></p>"; 
+          HTMLstring += "<p class=\"result\"> Estimate : <span style=\"color:#f39c12;\">" + (1 - result).toFixed(5) + "</span></p>"; 
+          HTMLstring += "<p class=\"result\"> Percentage : <span style=\"color:#f1c40f;\">" + ((1-result)*100).toFixed(5) + "%</span></p>";
+        }
+        $(function(){  // $(document).ready shorthand
+            markovDiv.innerHTML = HTMLstring;
+            $('#markov_continue').hide().fadeIn("fast");
+        });
+        inequalityMarkov(result, probability, average, count); 
+      });
   }
 
   function processDropdown() {

@@ -128,7 +128,7 @@ p.chebytext {
   text-align:center;
 }
 
-#result {
+.result {
   margin-top: 20px;
   color: #ecf0f1;
   font-family: Avenir;
