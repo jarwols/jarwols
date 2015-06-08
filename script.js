@@ -120,12 +120,12 @@
     var htmlString =  "<p style=\"font-size:25px;\" class=\"markov_input\"> Enter <span style=\"color:#f39c12;\"> k</span> such that |X - <span style=\"color:#f1c40f;\">" + average + "</span>| ≥ <span style=\"color:#f39c12;\"> k</span></p>"
     htmlString += "<p style=\"font-size:14px;\"> distance from the mean </p>";
     htmlString += "<input type=\"text\" name=\"search\" id=\"average\" placeholder=\"|X - μ| ≥ k\" />";
-    htmlString += "<input type=\"submit\" value=\"submit chebyshev\" class=\"submit_values\" />"
+    htmlString += "<input type=\"submit\" value=\"submit chebyshev\" class=\"submit_cheby\" />"
     $(function(){  // $(document).ready shorthand
       chebyDiv.innerHTML = htmlString;
       $('#chebyshev_continue').hide().fadeIn("slow");
     });
-    var chebyResponse = document.getElementsByClassName("submit_values"); 
+    var chebyResponse = document.getElementsByClassName("submit_cheby"); 
     chebyResponse[0].addEventListener("click", function(event) {
       var vary = document.getElementById("average"); 
       chebyDiv.innerHTML = ""; 
