@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CS 109 Project</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway|Roboto:400,700|Ubuntu+Mono|Shadows+Into+Light" />
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <script type="text/javascript" src="jquery.js"></script>
+    <div id="top-bar" class="hide">
+      <h2>Helpful Inequalities</h2>
+    </div>
+
+    <div id="instructions" class="hide">
+      <p> Click on an inequality below and the website will guide you through the calculation</p>
+      <div id="markovContainer">
+        <div id="markov_option">
+          <img height="90" width="90" src="markov .png" id="markovButton"></img>
+          <p> Markov's Inequality</p>
+          <div id="markov_continue">
+          </div> 
+        </div> 
+        <p class="markov_text"> <span style="color:#ecf0f1; font-size:20px;"><i>Requires:</i></span> &mu; [mean]</p>
+      </div>
+
+      <div id="chebyshevContainer">
+        <div id="chebyshev_option">
+          <img height="90" width="90" src="chebyshev.png" id="chebyButton"></img>
+          <p> Chebyshev's Inequality</p>
+          <div id="chebyshev_continue">
+          </div> 
+          <p id="chebytext"> <span style="color:#ecf0f1; font-size:20px;"><i>Requires: </i></span><span style="color:#f39c12;">&mu; [mean]</span> + <span style="color:#f1c40f;">&sigma; [standard dev.]</span></p>
+        </div>
+      </div>
+    </div>
+    <div id="name">Jared Wolens 😄</div>
+    <div id="footer">
+      <form action="">
+        <input type="submit" value="reset calculation" />
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
