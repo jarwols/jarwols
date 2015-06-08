@@ -104,7 +104,7 @@ p.chebytext {
 
 #instructions {
   overflow: hidden;
-  width: 1125px;
+  width: 90%;
   font-size: 20px;
   color: #ecf0f1; 
   margin: 40px auto 80px;
@@ -114,6 +114,8 @@ p.chebytext {
 
 #markov_continue input{
   color: #ecf0f1;
+  margin-top: 20px;
+  margin: auto;
 }
 
 #markov_continue input[type="text"] {
@@ -149,8 +151,7 @@ p.chebytext {
   color: #ecf0f1;
   text-align: center; 
   display: block;
-  margin-left: 43.9%; 
-  margin-top: 20px; 
+  margin: auto;
 }
 
 .submit_cheby {

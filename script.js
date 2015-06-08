@@ -42,7 +42,7 @@
   function continueMarkov() {
     var markovDiv = document.getElementById("markov_continue");
     markovDiv.innerHTML = ""; 
-    var htmlString = "<input style=\"margin-top:30px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter average (μ)\" />";
+    var htmlString = "<input style=\"margin-top:30px; margin-bottom:20px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter average (μ)\" />";
     htmlString += "<input type=\"submit\" value=\"submit average\" class=\"submit_values\" />"
     $(function(){  // $(document).ready shorthand
       markovDiv.innerHTML = htmlString;
@@ -59,11 +59,17 @@
   function finishMarkov(average) {
     var markovDiv = document.getElementById("markov_continue");
     var htmlString =  "<p style=\"font-size:25px;\" class=\"markov_input\"> Enter <span style=\"color:#f39c12;\"> a</span> such that P(X ≥ <span style=\"color:#f39c12;\">a</span>) </p>"
-    htmlString += "<input style=\"margin-top:10px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"P(X ≥ a)\" />";
+    htmlString += "<input style=\"margin-top:10px; margin-bottom:30px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"P(X ≥ a)\" />";
     htmlString += "<input type=\"submit\" value=\"submit markov\" class=\"submit_values\" />"
     $(function(){  // $(document).ready shorthand
       markovDiv.innerHTML = htmlString;
       $('#markov_continue').hide().fadeIn("slow");
+    });
+    $(function(){
+      $('html, body').animate({
+        scrollTop: $("#markov_continue").offset().top
+      }, 500);
+      return false;
     });
     var markovResponse = document.getElementsByClassName("submit_values"); 
     markovResponse[0].addEventListener("click", function(event) {
@@ -78,6 +84,12 @@
         markovDiv.innerHTML = HTMLstring;
         $('#markov_continue').hide().fadeIn("slow");
       }); 
+      $(function(){
+        $('html, body').animate({
+          scrollTop: $("#markov_continue").offset().top
+        }, 500);
+        return false;
+      });
       submit[0].style.color = "#f39c12"; 
     }); 
   }
@@ -85,11 +97,12 @@
   function continueCheby() {
     var chebyDiv = document.getElementById("chebyshev_continue");
     chebyDiv.innerHTML = ""; 
-    var htmlString = "<input style=\"margin-top:20px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter average (μ)\" />";
+    var htmlString = "<input style=\"margin-top:20px; margin-bottom:30px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter average (μ)\" />";
     htmlString += "<input type=\"submit\" value=\"submit average\" class=\"submit_values\" />"
     $(function(){  // $(document).ready shorthand
       chebyDiv.innerHTML = htmlString;
       $('#chebyshevContainer').hide().fadeIn("slow");
+      $('#chebyshevContainer').css("display", ""); 
     });
     var chebyResponse = document.getElementsByClassName("submit_values"); 
     chebyResponse[0].addEventListener("click", function(event) {
@@ -101,13 +114,14 @@
   function processCheby(average) {
     var chebyDiv = document.getElementById("chebyshev_continue");
     chebyDiv.innerHTML = ""; 
-    var htmlString = "<input style=\"margin-top:20px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter std dev. (σ&#0178)\" />";
-    htmlString += "<input type=\"submit\" value=\"submit deviation\" class=\"submit_cheby\" />"
+    var htmlString = "<input style=\"margin-top:20px; margin-bottom:30px;\" type=\"text\" name=\"search\" id=\"average\" placeholder=\"enter std dev. (σ&#0178)\" />";
+    htmlString += "<input type=\"submit\" value=\"submit deviation\" class=\"submit_values\" />"
     $(function(){  // $(document).ready shorthand
       chebyDiv.innerHTML = htmlString;
       $('#chebyshev_continue').hide().fadeIn("slow");
+      $('#chebyshevContainer').css("display", ""); 
     });
-    var chebyResponse = document.getElementsByClassName("submit_cheby"); 
+    var chebyResponse = document.getElementsByClassName("submit_values"); 
     chebyResponse[0].addEventListener("click", function(event) {
       var stddev = document.getElementById("average"); 
       stddev = Number(stddev.value); 
@@ -119,13 +133,19 @@
     var chebyDiv = document.getElementById("chebyshev_continue");
     var htmlString =  "<p style=\"font-size:25px;\" class=\"markov_input\"> Enter <span style=\"color:#f39c12;\"> k</span> such that |X - <span style=\"color:#f1c40f;\">" + average + "</span>| ≥ <span style=\"color:#f39c12;\"> k</span></p>"
     htmlString += "<p style=\"font-size:14px;\"> distance from the mean </p>";
-    htmlString += "<input type=\"text\" name=\"search\" id=\"average\" placeholder=\"|X - μ| ≥ k\" />";
-    htmlString += "<input type=\"submit\" value=\"submit chebyshev\" class=\"submit_cheby\" />"
+    htmlString += "<input style=\"margin-bottom:30px;\"type=\"text\" name=\"search\" id=\"average\" placeholder=\"|X - μ| ≥ k\" />";
+    htmlString += "<input type=\"submit\" value=\"submit chebyshev\" class=\"submit_values\" />"
     $(function(){  // $(document).ready shorthand
       chebyDiv.innerHTML = htmlString;
       $('#chebyshev_continue').hide().fadeIn("slow");
     });
-    var chebyResponse = document.getElementsByClassName("submit_cheby"); 
+    $(function(){
+      $('html, body').animate({
+        scrollTop: $("#chebyshev_continue").offset().top
+      }, 500);
+      return false;
+    });
+    var chebyResponse = document.getElementsByClassName("submit_values"); 
     chebyResponse[0].addEventListener("click", function(event) {
       var vary = document.getElementById("average"); 
       chebyDiv.innerHTML = ""; 
@@ -151,10 +171,10 @@
   }
   $(function(){
     $('html, body').animate({
-        scrollTop: $("#instructions").offset().top
+        scrollTop: $("#chebyshevContainer").offset().top
     }, 500);
     return false;
-});
+  });
   addListeners();
   processDropdown();  
 
