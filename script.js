@@ -149,7 +149,12 @@
       location.reload(); 
     });
   }
-
+  $(function(){
+    $('html, body').animate({
+        scrollTop: $("#instructions").offset().top
+    }, 500);
+    return false;
+});
   addListeners();
   processDropdown();  
 
