@@ -233,7 +233,7 @@
     $(function(){
       $('html, body').animate({
         scrollTop: $("#chebyshevContainer").offset().top
-      }, 1000);
+      }, 1700);
     return false;
     });}, 2500);
 
