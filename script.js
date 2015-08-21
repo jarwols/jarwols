@@ -235,7 +235,7 @@
         scrollTop: $("#chebyshevContainer").offset().top
       }, 1000);
     return false;
-    });}, 1500);
+    });}, 2500);
 
   addListeners();
   processDropdown();  
