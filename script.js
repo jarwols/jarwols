@@ -228,12 +228,15 @@
       location.reload(); 
     });
   }
-  $(function(){
-    $('html, body').animate({
+  
+  setTimeout(function() {
+    $(function(){
+      $('html, body').animate({
         scrollTop: $("#chebyshevContainer").offset().top
-    }, 1500);
+      }, 1000);
     return false;
-  });
+    }), 1500);
+
   addListeners();
   processDropdown();  
 
